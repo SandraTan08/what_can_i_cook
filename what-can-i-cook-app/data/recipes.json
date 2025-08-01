@@ -1,0 +1,235 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Stir Fried Chicken",
+      "cookTime": 35,
+      "difficulty": 2,
+      "image": "/placeholder.svg?height=300&width=300&text=Stir+Fried+Chicken",
+      "ingredients": ["chicken", "garlic", "soy sauce", "salt", "carrot", "broccoli", "pepper"],
+      "instructions": [
+        "Cut the garlic into thin slices",
+        "Heat the pan and pour a tablespoon of oil inside",
+        "Add the garlic slices and stir fry until fragrant",
+        "Wash the broccoli and cut into small portions",
+        "Throw the garlic and broccoli into the pan and stir fry",
+        "Add the chicken cubes",
+        "Sprinkle some salt and pepper",
+        "Add 2 spoonfuls of soy sauce"
+      ],
+      "tips": "Don't have broccoli? Use spinach instead!",
+      "alternatives": {
+        "broccoli": "spinach",
+        "soy sauce": "teriyaki sauce"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Tomato & Egg",
+      "cookTime": 15,
+      "difficulty": 1,
+      "image": "/placeholder.svg?height=300&width=300&text=Tomato+Egg",
+      "ingredients": ["tomato", "egg", "salt", "pepper", "garlic", "onion"],
+      "instructions": [
+        "Beat the eggs in a bowl",
+        "Heat oil in pan",
+        "Scramble the eggs and set aside",
+        "Dice the tomatoes",
+        "Stir fry tomatoes until soft",
+        "Add eggs back to pan",
+        "Season with salt and pepper"
+      ],
+      "tips": "Add a pinch of sugar to balance the acidity!",
+      "alternatives": {
+        "tomato": "bell pepper"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Egg Drop Soup",
+      "cookTime": 20,
+      "difficulty": 1,
+      "image": "/placeholder.svg?height=300&width=300&text=Egg+Drop+Soup",
+      "ingredients": ["egg", "chicken broth", "cornstarch", "salt", "pepper", "green onion"],
+      "instructions": [
+        "Heat chicken broth in a pot",
+        "Mix cornstarch with water",
+        "Add cornstarch mixture to thicken soup",
+        "Beat eggs in a bowl",
+        "Slowly pour eggs into soup while stirring",
+        "Season with salt and pepper",
+        "Garnish with green onions"
+      ],
+      "tips": "Stir constantly when adding eggs for silky texture!",
+      "alternatives": {
+        "chicken broth": "vegetable broth"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Omelette",
+      "cookTime": 10,
+      "difficulty": 1,
+      "image": "/placeholder.svg?height=300&width=300&text=Omelette",
+      "ingredients": ["egg", "milk", "cheese", "salt", "pepper", "butter"],
+      "instructions": [
+        "Beat eggs with milk",
+        "Heat butter in non-stick pan",
+        "Pour egg mixture into pan",
+        "Let it set for 2 minutes",
+        "Add cheese to one half",
+        "Fold omelette in half",
+        "Slide onto plate"
+      ],
+      "tips": "Keep heat medium-low for fluffy texture!",
+      "alternatives": {
+        "cheese": "ham or vegetables"
+      }
+    },
+    {
+      "id": 5,
+      "name": "Fried Rice",
+      "cookTime": 25,
+      "difficulty": 2,
+      "image": "/placeholder.svg?height=200&width=200&text=Fried+Rice",
+      "ingredients": ["rice", "egg", "soy sauce", "garlic", "onion", "carrot", "peas"],
+      "instructions": [
+        "Cook rice and let it cool",
+        "Scramble eggs and set aside",
+        "Stir fry garlic and onion",
+        "Add rice and vegetables",
+        "Add soy sauce and eggs",
+        "Stir fry until heated through"
+      ],
+      "tips": "Use day-old rice for best texture!",
+      "alternatives": {
+        "peas": "corn or green beans"
+      }
+    },
+    {
+      "id": 6,
+      "name": "Chicken Soup",
+      "cookTime": 45,
+      "difficulty": 2,
+      "image": "/placeholder.svg?height=200&width=200&text=Chicken+Soup",
+      "ingredients": ["chicken", "carrot", "onion", "celery", "salt", "pepper", "parsley"],
+      "instructions": [
+        "Boil chicken in water",
+        "Remove chicken and shred",
+        "Add vegetables to broth",
+        "Simmer for 20 minutes",
+        "Add chicken back",
+        "Season with salt and pepper",
+        "Garnish with parsley"
+      ],
+      "tips": "Simmer slowly for rich flavor!",
+      "alternatives": {
+        "celery": "potato"
+      }
+    },
+    {
+      "id": 7,
+      "name": "Pasta Salad",
+      "cookTime": 20,
+      "difficulty": 1,
+      "image": "/placeholder.svg?height=200&width=200&text=Pasta+Salad",
+      "ingredients": ["pasta", "tomato", "cheese", "olive oil", "basil", "salt", "pepper"],
+      "instructions": [
+        "Cook pasta according to package",
+        "Drain and cool pasta",
+        "Dice tomatoes and cheese",
+        "Mix pasta with vegetables",
+        "Add olive oil and seasonings",
+        "Toss with fresh basil",
+        "Chill before serving"
+      ],
+      "tips": "Great for meal prep!",
+      "alternatives": {
+        "basil": "oregano or parsley"
+      }
+    },
+    {
+      "id": 8,
+      "name": "Pancakes",
+      "cookTime": 15,
+      "difficulty": 1,
+      "image": "/placeholder.svg?height=200&width=200&text=Pancakes",
+      "ingredients": ["flour", "egg", "milk", "butter", "salt", "sugar", "baking powder"],
+      "instructions": [
+        "Mix dry ingredients",
+        "Whisk wet ingredients separately",
+        "Combine wet and dry ingredients",
+        "Heat pan with butter",
+        "Pour batter into pan",
+        "Flip when bubbles form",
+        "Serve hot with syrup"
+      ],
+      "tips": "Don't overmix the batter!",
+      "alternatives": {
+        "milk": "buttermilk for tangier flavor"
+      }
+    },
+    {
+      "id": 9,
+      "name": "Grilled Cheese",
+      "cookTime": 8,
+      "difficulty": 1,
+      "image": "/placeholder.svg?height=200&width=200&text=Grilled+Cheese",
+      "ingredients": ["bread", "cheese", "butter"],
+      "instructions": [
+        "Butter one side of each bread slice",
+        "Place cheese between unbuttered sides",
+        "Heat pan over medium heat",
+        "Cook sandwich buttered side down",
+        "Flip when golden brown",
+        "Cook until other side is golden",
+        "Cut and serve hot"
+      ],
+      "tips": "Use medium heat for even melting!",
+      "alternatives": {
+        "butter": "mayonnaise for crispier crust"
+      }
+    },
+    {
+      "id": 10,
+      "name": "Caesar Salad",
+      "cookTime": 15,
+      "difficulty": 2,
+      "image": "/placeholder.svg?height=200&width=200&text=Caesar+Salad",
+      "ingredients": ["lettuce", "parmesan", "croutons", "caesar dressing", "lemon", "garlic"],
+      "instructions": [
+        "Wash and chop lettuce",
+        "Make dressing with garlic and lemon",
+        "Toss lettuce with dressing",
+        "Add parmesan cheese",
+        "Top with croutons",
+        "Serve immediately"
+      ],
+      "tips": "Chill the bowl for crispier salad!",
+      "alternatives": {
+        "croutons": "toasted nuts"
+      }
+    },
+    {
+      "id": 11,
+      "name": "Beef Stir Fry",
+      "cookTime": 30,
+      "difficulty": 2,
+      "image": "/placeholder.svg?height=200&width=200&text=Beef+Stir+Fry",
+      "ingredients": ["beef", "bell pepper", "onion", "soy sauce", "garlic", "ginger", "oil"],
+      "instructions": [
+        "Slice beef thinly",
+        "Heat oil in wok",
+        "Stir fry beef until browned",
+        "Add vegetables",
+        "Add garlic and ginger",
+        "Add soy sauce",
+        "Stir fry until vegetables are tender"
+      ],
+      "tips": "High heat is key for good stir fry!",
+      "alternatives": {
+        "beef": "chicken or tofu"
+      }
+    }
+  ]
+}

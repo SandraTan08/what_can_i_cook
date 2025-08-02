@@ -87,6 +87,7 @@ export default function ResultsPage() {
     setUserIngredients(newIngredients)
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const getMissingIngredients = (recipe: Recipe): string[] => {
     return recipe.ingredients.filter(
       (ingredient) =>

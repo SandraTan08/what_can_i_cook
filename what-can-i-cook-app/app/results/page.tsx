@@ -2,9 +2,33 @@
 
 import Link from "next/link"
 import { useState, useEffect } from "react"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 
-// Recipe data with emoji images
+// Sample ingredient database for the search
+const ALL_INGREDIENTS = [
+  "Egg",
+  "Chicken",
+  "Rice",
+  "Garlic",
+  "Onion",
+  "Pepper",
+  "Salt",
+  "Tomato",
+  "Cheese",
+  "Carrot",
+  "Broccoli",
+  "Pasta",
+  "Mushroom",
+  "Spinach",
+  "Potato",
+  "Beef",
+  "Pork",
+  "Fish",
+  "Milk",
+  "Butter",
+]
+
+// Recipe data
 const RECIPES_DATA = [
   {
     id: 1,
@@ -253,10 +277,13 @@ interface Recipe {
 
 export default function ResultsPage() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null)
   const [userIngredients, setUserIngredients] = useState<string[]>([])
   const [maxCookTime, setMaxCookTime] = useState<number>(300)
   const [maxIngredients, setMaxIngredients] = useState<number>(20)
+  const [searchInput, setSearchInput] = useState("")
+  const [showDropdown, setShowDropdown] = useState(false)
 
   // Get parameters from URL
   useEffect(() => {
@@ -275,6 +302,40 @@ export default function ResultsPage() {
     }
   }, [searchParams])
 
+  // Update URL when filters change
+  const updateFilters = () => {
+    const params = new URLSearchParams()
+    params.set("ingredients", userIngredients.join(","))
+    params.set("maxCookTime", maxCookTime.toString())
+    params.set("maxIngredients", maxIngredients.toString())
+    router.push(`/results?${params.toString()}`)
+  }
+
+  // Add ingredient
+  const addIngredient = (ingredient: string) => {
+    if (!userIngredients.includes(ingredient)) {
+      const newIngredients = [...userIngredients, ingredient]
+      setUserIngredients(newIngredients)
+      setSearchInput("")
+      setShowDropdown(false)
+      // Update URL after state change
+      setTimeout(() => updateFilters(), 0)
+    }
+  }
+
+  // Remove ingredient
+  const removeIngredient = (ingredient: string) => {
+    const newIngredients = userIngredients.filter((item) => item !== ingredient)
+    setUserIngredients(newIngredients)
+    setTimeout(() => updateFilters(), 0)
+  }
+
+  // Filter ingredients for dropdown
+  const filteredIngredients = ALL_INGREDIENTS.filter(
+    (ingredient) =>
+      ingredient.toLowerCase().includes(searchInput.toLowerCase()) && !userIngredients.includes(ingredient),
+  ).slice(0, 5)
+
   // Calculate recipe match score
   const calculateMatchScore = (recipe: Recipe): number => {
     const matchingIngredients = recipe.ingredients.filter((ingredient) =>
@@ -287,7 +348,7 @@ export default function ResultsPage() {
     return matchingIngredients.length
   }
 
-  // Filter and sort recipes - FIXED: Direct type assertion
+  // Filter and sort recipes
   const getFilteredRecipes = () => {
     return (RECIPES_DATA as Recipe[])
       .filter((recipe) => recipe.cookTime <= maxCookTime && recipe.ingredients.length <= maxIngredients)
@@ -331,22 +392,99 @@ export default function ResultsPage() {
         </div>
       </header>
 
-      {/* Filter Summary */}
+      {/* EDITABLE Filter Bar */}
       <div className="max-w-6xl mx-auto px-6 mb-6">
-        <div className="bg-white rounded-lg p-4 shadow-sm border">
-          <div className="flex flex-wrap gap-4 items-center text-sm text-gray-600">
-            <span>
-              <strong>Your ingredients:</strong> {userIngredients.join(", ") || "None selected"}
-            </span>
-            <span>
-              <strong>Max cook time:</strong> {maxCookTime} min
-            </span>
-            <span>
-              <strong>Max ingredients:</strong> {maxIngredients}
-            </span>
-            <span>
-              <strong>Found:</strong> {filteredRecipes.length} recipes
-            </span>
+        <div className="bg-white rounded-lg p-6 shadow-sm border">
+          {/* Ingredients Section */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Your ingredients:</label>
+            <div className="relative">
+              <div className="min-h-12 px-4 py-2 border border-gray-300 rounded-lg focus-within:border-blue-500 bg-white">
+                {/* Selected Ingredients Tags */}
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {userIngredients.map((ingredient) => (
+                    <span
+                      key={ingredient}
+                      className="flex items-center gap-1 px-3 py-1 bg-blue-100 rounded-full text-sm text-blue-800"
+                    >
+                      {ingredient}
+                      <button
+                        onClick={() => removeIngredient(ingredient)}
+                        className="ml-1 text-blue-600 hover:text-red-500"
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+                </div>
+                {/* Search Input */}
+                <input
+                  type="text"
+                  placeholder="Add more ingredients..."
+                  value={searchInput}
+                  onChange={(e) => {
+                    setSearchInput(e.target.value)
+                    setShowDropdown(e.target.value.length > 0)
+                  }}
+                  onFocus={() => setShowDropdown(searchInput.length > 0)}
+                  className="w-full outline-none bg-transparent"
+                />
+              </div>
+              {/* Dropdown */}
+              {showDropdown && filteredIngredients.length > 0 && (
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                  {filteredIngredients.map((ingredient) => (
+                    <div
+                      key={ingredient}
+                      onClick={() => addIngredient(ingredient)}
+                      className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-gray-700 border-b border-gray-100 last:border-b-0"
+                    >
+                      {ingredient}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Filters Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Cook Time Filter */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Max cook time: {maxCookTime} min</label>
+              <input
+                type="range"
+                min="0"
+                max="300"
+                value={maxCookTime}
+                onChange={(e) => {
+                  setMaxCookTime(Number(e.target.value))
+                  setTimeout(() => updateFilters(), 500) // Debounce
+                }}
+                className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer"
+              />
+            </div>
+
+            {/* Ingredients Count Filter */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Max ingredients: {maxIngredients}</label>
+              <input
+                type="range"
+                min="0"
+                max="20"
+                value={maxIngredients}
+                onChange={(e) => {
+                  setMaxIngredients(Number(e.target.value))
+                  setTimeout(() => updateFilters(), 500) // Debounce
+                }}
+                className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer"
+              />
+            </div>
+          </div>
+
+          {/* Results Summary */}
+          <div className="mt-4 text-sm text-gray-600">
+            <strong>Found:</strong> {filteredRecipes.length} recipes matching your criteria
           </div>
         </div>
       </div>
@@ -391,7 +529,7 @@ export default function ResultsPage() {
           )}
         </section>
 
-        {/* Similar Recipes - FIXED: Made cards bigger and added proper labels */}
+        {/* Similar Recipes - FIXED: Removed cut-off indicator, added match info to text */}
         {similarRecipes.length > 0 && (
           <section>
             <h2 className="text-2xl font-bold text-gray-800 mb-6">SIMILAR RECIPES</h2>
@@ -402,20 +540,19 @@ export default function ResultsPage() {
                   onClick={() => setSelectedRecipe(recipe)}
                   className="flex-shrink-0 cursor-pointer group"
                 >
-                  {/* Recipe Image */}
+                  {/* Recipe Image - NO MORE CUT-OFF INDICATOR */}
                   <div className="w-20 h-20 rounded-full overflow-hidden shadow-lg hover:shadow-xl transition-shadow relative mb-2">
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-200 group-hover:scale-105 transition-transform duration-300">
                       <span className="text-2xl">{recipe.image}</span>
                     </div>
-                    <div className="absolute top-1 right-1 bg-green-500 text-white text-xs px-1 py-0.5 rounded-full">
-                      {recipe.matchScore}
-                    </div>
                   </div>
-                  {/* Recipe Info */}
+                  {/* Recipe Info - FIXED: Shows match ratio in ingredients count */}
                   <div className="text-center w-20">
                     <p className="text-xs font-medium text-gray-800 truncate">{recipe.name}</p>
                     <p className="text-xs text-gray-500">{recipe.cookTime}min</p>
-                    <p className="text-xs text-gray-500">{recipe.ingredients.length} items</p>
+                    <p className="text-xs text-gray-500">
+                      {recipe.matchScore}/{recipe.ingredients.length} ingredients
+                    </p>
                   </div>
                 </div>
               ))}
@@ -424,10 +561,10 @@ export default function ResultsPage() {
         )}
       </main>
 
-      {/* Recipe Detail Modal - FIXED: Much lighter background */}
+      {/* Recipe Detail Modal - FIXED: Light transparent background */}
       {selectedRecipe && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-20 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-white bg-opacity-40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
             {/* Modal Header */}
             <div className="flex justify-between items-center p-6 border-b">
               <h2 className="text-2xl font-bold text-gray-800">{selectedRecipe.name}</h2>

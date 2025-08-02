@@ -2,6 +2,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+Go into the correct directory 
+cd what-can-i-cook-app
+
 First, run the development server:
 
 ```bash

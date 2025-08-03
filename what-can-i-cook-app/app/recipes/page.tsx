@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { RECIPES_DATA, type Recipe } from "../../data/recipes"
 import RecipeModal from "../../components/recipe-modal"
 import RecipeCard from "../../components/recipe-card"
@@ -16,18 +16,7 @@ const CATEGORY_NAMES: Record<string, string> = {
   salads: "SALADS",
 }
 
-  // Clean the raw recipe data
-  const cleanedRecipes: Recipe[] = RECIPES_DATA.map((raw) => ({
-    ...raw,
-    alternatives: Object.fromEntries(
-      Object.entries(raw.alternatives).filter(([_, v]) => v !== undefined)
-    ),
-  }))
-
-export default function TopRecipesPage() {
-  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null)
-
-const getFeaturedRecipe = (): Recipe => {
+function getFeaturedRecipe(): Recipe {
   const today = new Date()
   const dayOfYear = Math.floor(
     (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000
@@ -50,8 +39,36 @@ const getFeaturedRecipe = (): Recipe => {
   }
 }
 
+export default function TopRecipesPage() {
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null)
+  const [featured, setFeatured] = useState<Recipe | null>(null)
+  const [screenWidth, setScreenWidth] = useState<number | null>(null)
 
-  const featuredRecipe = getFeaturedRecipe()
+  // Set screen width and listen to resize
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setScreenWidth(window.innerWidth)
+
+      const handleResize = () => setScreenWidth(window.innerWidth)
+      window.addEventListener("resize", handleResize)
+
+      return () => window.removeEventListener("resize", handleResize)
+    }
+  }, [])
+
+  // Load featured recipe on mount
+  useEffect(() => {
+    const recipe = getFeaturedRecipe()
+    setFeatured(recipe)
+  }, [])
+
+  // Clean all recipes once (you can also move this outside component)
+  const cleanedRecipes: Recipe[] = RECIPES_DATA.map((raw) => ({
+    ...raw,
+    alternatives: Object.fromEntries(
+      Object.entries(raw.alternatives).filter(([_, v]) => v !== undefined)
+    ),
+  }))
 
   // Group recipes by category
   const recipesByCategory = cleanedRecipes.reduce(
@@ -60,8 +77,13 @@ const getFeaturedRecipe = (): Recipe => {
       acc[recipe.category].push(recipe)
       return acc
     },
-    {} as Record<string, Recipe[]>,
+    {} as Record<string, Recipe[]>
   )
+
+  // If featured recipe is not loaded yet, show loading or nothing
+  if (!featured) {
+    return <div>Loading featured recipe...</div>
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
@@ -84,7 +106,7 @@ const getFeaturedRecipe = (): Recipe => {
             {/* Image */}
             <div className="relative h-64 sm:h-80 md:h-96">
               <div className="w-full h-full bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center">
-                <span className="text-6xl sm:text-8xl">{featuredRecipe.image}</span>
+                <span className="text-6xl sm:text-8xl">{featured.image}</span>
               </div>
               <div className="absolute top-4 left-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-semibold">
                 ⭐ Featured Today
@@ -93,13 +115,13 @@ const getFeaturedRecipe = (): Recipe => {
 
             {/* Info */}
             <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 sm:p-8 flex flex-col justify-center">
-              <h1 className="text-2xl sm:text-4xl font-bold mb-4">{featuredRecipe.name}</h1>
-              <p className="text-blue-100 text-base sm:text-lg mb-6 leading-relaxed">{featuredRecipe.description}</p>
+              <h1 className="text-2xl sm:text-4xl font-bold mb-4">{featured.name}</h1>
+              <p className="text-blue-100 text-base sm:text-lg mb-6 leading-relaxed">{featured.description}</p>
 
               <div className="flex items-center gap-4 sm:gap-6 mb-6 text-sm sm:text-base">
                 <div className="flex items-center gap-2">
                   <span className="text-xl sm:text-2xl">⏱️</span>
-                  <span className="text-blue-100">{featuredRecipe.cookTime} min</span>
+                  <span className="text-blue-100">{featured.cookTime} min</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-xl sm:text-2xl">👨‍🍳</span>
@@ -107,7 +129,7 @@ const getFeaturedRecipe = (): Recipe => {
                     {[...Array(5)].map((_, i) => (
                       <span
                         key={i}
-                        className={`${i < featuredRecipe.difficulty ? "text-yellow-300" : "text-blue-300"}`}
+                        className={`${i < featured.difficulty ? "text-yellow-300" : "text-blue-300"}`}
                       >
                         ★
                       </span>
@@ -117,7 +139,7 @@ const getFeaturedRecipe = (): Recipe => {
               </div>
 
               <button
-                onClick={() => setSelectedRecipe(featuredRecipe)}
+                onClick={() => setSelectedRecipe(featured)}
                 className="bg-white text-blue-600 px-6 sm:px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-colors self-start"
               >
                 View Recipe
@@ -144,7 +166,7 @@ const getFeaturedRecipe = (): Recipe => {
                   key={recipe.id}
                   recipe={recipe}
                   onClick={() => setSelectedRecipe(recipe)}
-                  size={window.innerWidth < 640 ? "large" : "medium"}
+                  size={screenWidth && screenWidth < 640 ? "large" : "medium"}
                 />
               ))}
             </div>

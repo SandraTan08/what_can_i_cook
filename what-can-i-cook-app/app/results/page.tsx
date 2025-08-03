@@ -30,6 +30,14 @@ const ALL_INGREDIENTS = [
   "Butter",
 ]
 
+const cleanedRecipes: Recipe[] = RECIPES_DATA.map((raw) => ({
+  ...raw,
+  alternatives: Object.fromEntries(
+    Object.entries(raw.alternatives).filter(([_, v]) => v !== undefined)
+  ),
+}))
+
+
 export default function ResultsPage() {
   const searchParams = useSearchParams()
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null)
@@ -59,14 +67,17 @@ export default function ResultsPage() {
     ).length
   }
 
-  const filteredRecipes = RECIPES_DATA.filter(
-    (recipe) => recipe.cookTime <= maxCookTime && recipe.ingredients.length <= maxIngredients,
-  )
+  const filteredRecipes = cleanedRecipes
+    .filter(
+      (recipe) =>
+        recipe.cookTime <= maxCookTime && recipe.ingredients.length <= maxIngredients
+    )
     .map((recipe) => ({ ...recipe, matchScore: calculateMatchScore(recipe) }))
     .sort((a, b) => b.matchScore - a.matchScore)
 
   const topMatches = filteredRecipes.slice(0, 4)
   const similarRecipes = filteredRecipes.slice(4, 11)
+
 
   const filteredIngredients = ALL_INGREDIENTS.filter(
     (ingredient) =>

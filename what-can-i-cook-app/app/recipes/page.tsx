@@ -16,18 +16,45 @@ const CATEGORY_NAMES: Record<string, string> = {
   salads: "SALADS",
 }
 
+  // Clean the raw recipe data
+  const cleanedRecipes: Recipe[] = RECIPES_DATA.map((raw) => ({
+    ...raw,
+    alternatives: Object.fromEntries(
+      Object.entries(raw.alternatives).filter(([_, v]) => v !== undefined)
+    ),
+  }))
+
 export default function TopRecipesPage() {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null)
 
-  const getFeaturedRecipe = (): Recipe => {
-    const today = new Date()
-    const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000)
-    return RECIPES_DATA[dayOfYear % RECIPES_DATA.length]
+const getFeaturedRecipe = (): Recipe => {
+  const today = new Date()
+  const dayOfYear = Math.floor(
+    (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000
+  )
+
+  const rawRecipe = RECIPES_DATA[dayOfYear % RECIPES_DATA.length]
+
+  const cleanedIngredients = rawRecipe.ingredients.filter(
+    (item) => item !== undefined && item !== ""
+  )
+
+  const cleanedAlternatives = Object.fromEntries(
+    Object.entries(rawRecipe.alternatives).filter(([_, value]) => value !== undefined)
+  )
+
+  return {
+    ...rawRecipe,
+    ingredients: cleanedIngredients,
+    alternatives: cleanedAlternatives,
   }
+}
+
 
   const featuredRecipe = getFeaturedRecipe()
 
-  const recipesByCategory = RECIPES_DATA.reduce(
+  // Group recipes by category
+  const recipesByCategory = cleanedRecipes.reduce(
     (acc, recipe) => {
       if (!acc[recipe.category]) acc[recipe.category] = []
       acc[recipe.category].push(recipe)

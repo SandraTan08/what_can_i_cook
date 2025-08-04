@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useState, useEffect } from "react"
+import { EMOJI_MAP } from "../data/emojis";
 
 const ALL_INGREDIENTS = [
   "Egg",
@@ -19,18 +20,28 @@ const ALL_INGREDIENTS = [
   "Mushroom",
   "Spinach",
   "Potato",
+  "Oil",
+  "Avocado",
+  "Lemon",
+  "Blueberry",
+  "Cabbage",
+  "Cucumber",
 ]
 
 const QUICK_INGREDIENTS = [
-  { name: "Egg", emoji: "🥚" },
-  { name: "Cheese", emoji: "🧀" },
-  { name: "Rice", emoji: "🍚" },
-  { name: "Chicken", emoji: "🐔" },
-  { name: "Carrot", emoji: "🥕" },
-  { name: "Garlic", emoji: "🧄" },
-  { name: "Tomato", emoji: "🍅" },
-  { name: "Onion", emoji: "🧅" },
-]
+  "Egg",
+  "Cheese",
+  "Rice",
+  "Chicken",
+  "Carrot",
+  "Garlic",
+  "Tomato",
+  "Onion",
+].map((name) => ({
+  name,
+  emoji: EMOJI_MAP[name] || "❓", // fallback if not found
+}));
+
 
 const FLOATING_EMOJIS = ["🍳", "🥘", "🍜", "🥗", "🍲", "🥙", "🌮", "🍱"]
 
@@ -182,7 +193,7 @@ export default function HomePage() {
                     className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-400 to-pink-400 text-white rounded-full text-sm font-bold transform hover:scale-110 transition-all duration-200 animate-bounce-in"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    {QUICK_INGREDIENTS.find((item) => item.name === ingredient)?.emoji || "🥕"} {ingredient}
+                    {QUICK_INGREDIENTS.find((item) => item.name === ingredient)?.emoji || EMOJI_MAP[ingredient]} {ingredient}
                     <button
                       onClick={() => removeIngredient(ingredient)}
                       className="text-white hover:text-red-300 font-bold text-lg hover:scale-125 transition-all duration-200"
@@ -232,7 +243,7 @@ export default function HomePage() {
                   className="px-6 py-4 hover:bg-gradient-to-r hover:from-purple-100 hover:to-pink-100 cursor-pointer border-b border-purple-100 last:border-b-0 font-semibold text-gray-800 hover:text-purple-600 transition-all duration-200 transform hover:scale-105"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
-                  {QUICK_INGREDIENTS.find((item) => item.name === ingredient)?.emoji || "🥕"} {ingredient}
+                  {QUICK_INGREDIENTS.find((item) => item.name === ingredient)?.emoji || EMOJI_MAP[ingredient]} {ingredient}
                 </div>
               ))}
             </div>

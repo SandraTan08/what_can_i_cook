@@ -190,7 +190,7 @@ export default function TopRecipesPage() {
         <div className="max-w-4xl mx-auto px-4">
           <h1 className="text-4xl sm:text-7xl font-black text-white mb-6 leading-tight">
             <span className="inline-block transform hover:scale-110 hover:rotate-2 transition-all duration-300 cursor-pointer">
-              TODAY'S
+              TODAYS
             </span>
             <br />
             <span className="inline-block transform hover:scale-110 hover:-rotate-2 transition-all duration-300 cursor-pointer text-yellow-300">
@@ -201,7 +201,7 @@ export default function TopRecipesPage() {
             </span>
           </h1>
           <div className="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-3 rounded-full font-black text-lg sm:text-xl transform hover:scale-105 transition-all duration-300">
-            🌟 CHEF'S SPECIAL OF THE DAY! 🌟
+            🌟 CHEFS SPECIAL OF THE DAY! 🌟
           </div>
         </div>
       </div>

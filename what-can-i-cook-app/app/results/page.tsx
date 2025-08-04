@@ -388,7 +388,7 @@ export default function ResultsPage() {
                 <span className="text-pink-300">MORE</span> RECIPES
               </h2>
               <p className="text-white text-lg font-semibold opacity-90">
-                These might need a few extra ingredients, but they're worth it! 🌟
+                These might need a few extra ingredients, but they are worth it! 🌟
               </p>
             </div>
 

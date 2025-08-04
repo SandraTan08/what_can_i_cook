@@ -158,7 +158,7 @@ export default function HomePage() {
             {/* Quirky Subtitle */}
             <div className="relative inline-block">
               <p className="text-lg sm:text-2xl text-white font-bold max-w-2xl mx-auto bg-black bg-opacity-30 px-6 py-3 rounded-full transform hover:scale-105 transition-all duration-300">
-                Tell us what you have, we'll blow your mind! 🤯
+                Tell us what you have, we will blow your mind! 🤯
               </p>
               {/* Speech bubble pointer */}
               <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-8 border-transparent border-t-black border-opacity-30"></div>

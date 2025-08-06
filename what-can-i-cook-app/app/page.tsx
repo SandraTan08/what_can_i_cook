@@ -4,29 +4,7 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 import { EMOJI_MAP } from "../data/emojis";
 
-const ALL_INGREDIENTS = [
-  "Egg",
-  "Chicken",
-  "Rice",
-  "Garlic",
-  "Onion",
-  "Pepper",
-  "Salt",
-  "Tomato",
-  "Cheese",
-  "Carrot",
-  "Broccoli",
-  "Pasta",
-  "Mushroom",
-  "Spinach",
-  "Potato",
-  "Oil",
-  "Avocado",
-  "Lemon",
-  "Blueberry",
-  "Cabbage",
-  "Cucumber",
-]
+const userIngredients = [""];
 
 const QUICK_INGREDIENTS = [
   "Egg",
@@ -64,10 +42,14 @@ export default function HomePage() {
     return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
-  const filteredIngredients = ALL_INGREDIENTS.filter(
-    (ingredient) =>
-      ingredient.toLowerCase().includes(searchInput.toLowerCase()) && !selectedIngredients.includes(ingredient),
-  ).slice(0, 5)
+  const filteredIngredients = Object.keys(EMOJI_MAP)
+    .filter(
+      (ingredient) =>
+        ingredient.toLowerCase().includes(searchInput.toLowerCase()) &&
+        !userIngredients.includes(ingredient),
+    )
+    .slice(0, 5);
+
 
   const addIngredient = (ingredient: string) => {
     if (!selectedIngredients.includes(ingredient)) {

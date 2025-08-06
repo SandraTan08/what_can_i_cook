@@ -26,5 +26,6 @@ export const EMOJI_MAP: { [key: string]: string } = {
   Blueberry: "🫐",
   Avocado: "🥑",
   Garlic: "🧄",
-  Tomato: "🍅"
+  Tomato: "🍅",
+  Onion: "🧅",
 };

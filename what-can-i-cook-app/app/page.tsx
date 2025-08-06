@@ -106,17 +106,17 @@ export default function HomePage() {
       {/* Header */}
       <header className="flex items-center justify-center gap-6 py-8 ">
         <nav className="flex items-center gap-12 text-lg font-semibold text-white">
-          <a href="/" className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-yellow-400">
+          <Link href="/" className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-yellow-400">
             COOK WITH WHAT 🍳
-          </a>
+          </Link>
           <span className="text-white">·</span>
-          <a href="/recipes" className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-yellow-400">
+          <Link href="/recipes" className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-yellow-400">
             RECIPES
-          </a>
+          </Link>
           <span className="text-white">·</span>
-          <a href="/login" className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-yellow-400">
+          <Link href="/login" className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-yellow-400">
             LOGIN
-          </a>
+          </Link>
         </nav>
       </header>
 

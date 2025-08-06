@@ -88,36 +88,38 @@ export default function HomePage() {
 
       {/* Interactive Cursor Follower */}
       <div
-        className="fixed w-8 h-8 pointer-events-none z-50 transition-all duration-300 ease-out"
+        className="fixed z-50 pointer-events-none transition-all duration-150 ease-out"
         style={{
-          left: mousePosition.x - 16,
-          top: mousePosition.y - 16,
-          transform: isHungry ? "scale(2)" : "scale(1)",
+          left: mousePosition.x - 20,
+          top: mousePosition.y - 20,
+          width: 40,
+          height: 40,
         }}
       >
-        <div className="w-full h-full bg-yellow-400 rounded-full opacity-60 animate-pulse"></div>
+        {/* Outer ring */}
+        <div className="w-full h-full rounded-full border-2 border-lime-300 animate-ping"></div>
+        {/* Inner dot */}
+        <div className="absolute top-1/2 left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 bg-lime-500 rounded-full shadow-md" />
       </div>
 
+
       {/* Header */}
-      <header className="relative z-10 flex justify-between items-center p-4 sm:p-6">
-        <div className="text-2xl sm:text-3xl font-black text-white transform hover:scale-110 transition-transform cursor-pointer">
-          COOK WITH WHAT 🍳
-        </div>
-        <div className="flex gap-4 sm:gap-8 text-sm sm:text-base">
-          <Link
-            href="/recipes"
-            className="text-white hover:text-yellow-300 font-bold transform hover:scale-110 transition-all duration-200 hover:rotate-3"
-          >
+      <header className="flex items-center justify-center gap-6 py-8 ">
+        <nav className="flex items-center gap-12 text-lg font-semibold text-white">
+          <a href="/" className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-yellow-400">
+            COOK WITH WHAT 🍳
+          </a>
+          <span className="text-white">·</span>
+          <a href="/recipes" className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-yellow-400">
             RECIPES
-          </Link>
-          <Link
-            href="/login"
-            className="text-white hover:text-yellow-300 font-bold transform hover:scale-110 transition-all duration-200 hover:-rotate-3"
-          >
+          </a>
+          <span className="text-white">·</span>
+          <a href="/login" className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-yellow-400">
             LOGIN
-          </Link>
-        </div>
+          </a>
+        </nav>
       </header>
+
 
       {/* Main Content */}
       <main className="relative z-10 px-4 sm:px-6 py-8 sm:py-20">

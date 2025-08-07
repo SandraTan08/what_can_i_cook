@@ -158,7 +158,20 @@ export default function ResultsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 relative overflow-hidden">
+    // background colour 
+    <div className="min-h-screen relative overflow-hidden">
+      <div
+        className="absolute inset-0 bg-black bg-opacity-50 z-0"
+        style={{
+          backgroundImage: "url('images/lemon_bg.jpg')", // Original image path
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          filter: "brightness(0.5)",
+        }}
+      ></div>
+      {/* Top fade overlay */}
+      <div className="absolute top-0 left-0 w-full h-40 z-0 bg-gradient-to-b from-black to-transparent pointer-events-none" />
+
       {/* Celebration Confetti - ONLY when showCelebration is true */}
       {showCelebration && (
         <div className="fixed inset-0 pointer-events-none z-50">
@@ -203,27 +216,29 @@ export default function ResultsPage() {
       </div>
 
       {/* Header */}
-      <header className="relative z-10 flex justify-between items-center p-4 sm:p-6">
-        <Link
-          href="/"
-          className="text-2xl sm:text-3xl font-black text-white transform hover:scale-110 transition-all duration-300 hover:rotate-3"
-        >
-          COOK WITH WHAT 🍳
-        </Link>
-        <div className="flex gap-4 sm:gap-8 text-sm sm:text-base">
+      <header className="flex items-center justify-center gap-4 py-6 px-4 sm:gap-12 sm:py-8"> {/* Adjusted gap and added px for mobile */}
+        <nav className="flex flex-wrap justify-center items-center gap-4 text-lg font-semibold text-white"> {/* Added flex-wrap and justify-center for mobile */}
+          <Link
+            href="/"
+            className="relative px-2 py-1 rounded hover:bg-yellow-300 hover:text-black transition-colors" // Original color
+          >
+            COOK WITH WHAT 🍳
+          </Link>
+          <span className="text-white hidden sm:inline">·</span> {/* Hide dot on small screens */}
           <Link
             href="/recipes"
-            className="text-white hover:text-yellow-300 font-bold transform hover:scale-110 transition-all duration-200 hover:rotate-3"
+            className="relative px-2 py-1 rounded hover:bg-yellow-300 hover:text-black transition-colors" // Original color
           >
             RECIPES
           </Link>
+          <span className="text-white hidden sm:inline">·</span> {/* Hide dot on small screens */}
           <Link
             href="/login"
-            className="text-white hover:text-yellow-300 font-bold transform hover:scale-110 transition-all duration-200 hover:-rotate-3"
+            className="relative px-2 py-1 rounded hover:bg-yellow-300 hover:text-black transition-colors" // Original color
           >
             LOGIN
           </Link>
-        </div>
+        </nav>
       </header>
 
       {/* Results Hero Section */}
@@ -257,13 +272,13 @@ export default function ResultsPage() {
               🧺 YOUR MAGICAL INGREDIENTS:
             </label>
             <div className="relative">
-              <div className="min-h-14 px-6 py-4 border-4 border-purple-300 rounded-2xl focus-within:border-yellow-400 bg-white shadow-lg">
+              <div className="min-h-14 px-6 py-4 border-4 border-yellow-700 rounded-2xl focus-within:border-yellow-400 bg-white shadow-lg">
                 {/* Selected Ingredients Tags */}
                 <div className="flex flex-wrap gap-3 mb-3">
                   {userIngredients.map((ingredient) => (
                     <span
                       key={ingredient}
-                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-400 to-pink-400 text-white rounded-full text-sm font-bold transform hover:scale-110 transition-all duration-200"
+                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-500 to-amber-600 text-white rounded-full text-sm font-bold transform hover:scale-110 transition-all duration-200"
                     >
                       {QUICK_INGREDIENTS.find((item) => item.name === ingredient)?.emoji || "🥕"} {ingredient}
                       <button
@@ -290,12 +305,12 @@ export default function ResultsPage() {
               </div>
               {/* Enhanced Dropdown */}
               {showDropdown && filteredIngredients.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white border-4 border-purple-300 rounded-2xl shadow-2xl z-20 overflow-hidden">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border-4 border-yellow-700 rounded-2xl shadow-2xl z-20 overflow-hidden">
                   {filteredIngredients.map((ingredient) => (
                     <div
                       key={ingredient}
                       onClick={() => addIngredient(ingredient)}
-                      className="px-6 py-4 hover:bg-gradient-to-r hover:from-purple-100 hover:to-pink-100 cursor-pointer border-b border-purple-100 last:border-b-0 font-semibold text-gray-800 hover:text-purple-600 transition-all duration-200 transform hover:scale-105"
+                      className="px-6 py-4 hover:bg-gradient-to-r hover:from-yellow-500 to-amber-600 cursor-pointer border-b border-yellow-100 last:border-b-0 font-semibold text-gray-800 hover:text-slate-50 transition-all duration-200 transform hover:scale-105"
                     >
                       {QUICK_INGREDIENTS.find((item) => item.name === ingredient)?.emoji || "🥕"} {ingredient}
                     </div>
@@ -310,7 +325,7 @@ export default function ResultsPage() {
             {/* Cook Time Filter */}
             <div>
               <label className="block text-lg font-black text-gray-800 mb-4 flex items-center gap-2">
-                ⏰ MAX COOKING TIME: <span className="text-purple-600">{maxCookTime} MIN</span>
+                ⏰ MAX COOKING TIME: <span className="text-amber-600">{maxCookTime} MIN</span>
               </label>
               <input
                 type="range"
@@ -318,14 +333,14 @@ export default function ResultsPage() {
                 max="300"
                 value={maxCookTime}
                 onChange={(e) => setMaxCookTime(Number(e.target.value))}
-                className="w-full h-4 bg-purple-200 rounded-full appearance-none cursor-pointer slider-fun"
+                className="w-full h-4 bg-yellow-200 rounded-full appearance-none cursor-pointer slider-fun"
               />
             </div>
 
             {/* Ingredients Count Filter */}
             <div>
               <label className="block text-lg font-black text-gray-800 mb-4 flex items-center gap-2">
-                🥕 MAX INGREDIENTS: <span className="text-purple-600">{maxIngredients}</span>
+                🥕 MAX INGREDIENTS: <span className="text-yellow-600">{maxIngredients}</span>
               </label>
               <input
                 type="range"
@@ -333,7 +348,7 @@ export default function ResultsPage() {
                 max="20"
                 value={maxIngredients}
                 onChange={(e) => setMaxIngredients(Number(e.target.value))}
-                className="w-full h-4 bg-purple-200 rounded-full appearance-none cursor-pointer slider-fun"
+                className="w-full h-4 bg-yellow-200 rounded-full appearance-none cursor-pointer slider-fun"
               />
             </div>
           </div>

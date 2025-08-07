@@ -78,23 +78,24 @@ export default function HomePage() {
       ></div>
       {/* Top fade overlay */}
       <div className="absolute top-0 left-0 w-full h-40 z-0 bg-gradient-to-b from-black to-transparent pointer-events-none" />
-{/* Animated Background Elements */}
-<div className="absolute inset-0 pointer-events-none z-0">
-  {[...Array(6)].map((_, i) => (
-    <div
-      key={i}
-      className="absolute text-6xl opacity-70 animate-float-around drop-shadow-md"
-      style={{
-        left: `${10 + i * 15}%`,
-        top: `${15 + (i % 3) * 20}%`,
-        animationDelay: `${i * 0.5}s`,
-        animationDuration: `${8 + i}s`,
-      }}
-    >
-      🍋
-    </div>
-  ))}
-</div>
+      
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-6xl opacity-70 animate-float-around drop-shadow-md"
+            style={{
+              left: `${10 + i * 15}%`,
+              top: `${15 + (i % 3) * 20}%`,
+              animationDelay: `${i * 0.5}s`,
+              animationDuration: `${8 + i}s`,
+            }}
+          >
+            🍋
+          </div>
+        ))}
+      </div>
 
 
       {/* Interactive Cursor Follower */}
@@ -137,6 +138,7 @@ export default function HomePage() {
           </Link>
         </nav>
       </header>
+      
       {/* Main Content */}
       <main className="relative z-10 px-4 sm:px-6 py-8 sm:py-20">
         {/* Hero Section with Quirky Typography */}

@@ -67,7 +67,21 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-400 via-pink-400 to-purple-500 relative overflow-hidden">
+    // background colour 
+    <div className="min-h-screen relative overflow-hidden">
+      <div
+        className="absolute inset-0 bg-black bg-opacity-50 z-0"
+        style={{
+          backgroundImage: "url('images/blueberry_bg.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          filter: "brightness(0.5)",
+        }}
+      ></div>
+
+    {/* Top fade overlay */}
+    <div className="absolute top-0 left-0 w-full h-40 z-0 bg-gradient-to-b from-black to-transparent pointer-events-none" />
+
       {/* Animated Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         {FLOATING_EMOJIS.map((emoji, i) => (
@@ -99,7 +113,7 @@ export default function HomePage() {
         {/* Outer ring */}
         <div className="w-full h-full rounded-full border-2 border-lime-300 animate-ping"></div>
         {/* Inner dot */}
-        <div className="absolute top-1/2 left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 bg-lime-500 rounded-full shadow-md" />
+        <div className="absolute top-1/2 left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 bg-yellow-300 rounded-full shadow-md" />
       </div>
 
 
@@ -152,9 +166,10 @@ export default function HomePage() {
 
             {/* Quirky Subtitle */}
             <div className="relative inline-block">
-              <p className="text-lg sm:text-2xl text-white font-bold max-w-2xl mx-auto bg-black bg-opacity-30 px-6 py-3 rounded-full transform hover:scale-105 transition-all duration-300">
+              <p className="text-lg sm:text-2xl text-white font-extrabold max-w-2xl mx-auto bg-black/50 backdrop-blur-md px-8 py-4 rounded-full shadow-lg ring-2 ring-white/20 hover:scale-105 transition-all duration-300">
                 Tell us what you have, we will blow your mind! 🤯
               </p>
+
               {/* Speech bubble pointer */}
               <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-8 border-transparent border-t-black border-opacity-30"></div>
             </div>
@@ -174,7 +189,7 @@ export default function HomePage() {
                 {selectedIngredients.map((ingredient, index) => (
                   <span
                     key={ingredient}
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-400 to-pink-400 text-white rounded-full text-sm font-bold transform hover:scale-110 transition-all duration-200 animate-bounce-in"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-sky-500 to-cyan-400 text-white rounded-full text-sm font-bold transform hover:scale-110 transition-all duration-200 animate-bounce-in"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     {QUICK_INGREDIENTS.find((item) => item.name === ingredient)?.emoji || EMOJI_MAP[ingredient]} {ingredient}
@@ -204,9 +219,9 @@ export default function HomePage() {
             {/* Animated Filter Button */}
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 hover:bg-purple-100 rounded-full transition-all duration-300 hover:scale-110 hover:rotate-12"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 hover:bg-blue-100 rounded-full transition-all duration-300 hover:scale-110 hover:rotate-12"
             >
-              <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -219,12 +234,12 @@ export default function HomePage() {
 
           {/* Enhanced Dropdown */}
           {showDropdown && filteredIngredients.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-white border-4 border-purple-300 rounded-2xl shadow-2xl z-20 overflow-hidden animate-slide-down">
+            <div className="absolute top-full left-0 right-0 mt-2 bg-white border-4 border-blue-300 rounded-2xl shadow-2xl z-20 overflow-hidden animate-slide-down">
               {filteredIngredients.map((ingredient, index) => (
                 <div
                   key={ingredient}
                   onClick={() => addIngredient(ingredient)}
-                  className="px-6 py-4 hover:bg-gradient-to-r hover:from-purple-100 hover:to-pink-100 cursor-pointer border-b border-purple-100 last:border-b-0 font-semibold text-gray-800 hover:text-purple-600 transition-all duration-200 transform hover:scale-105"
+                  className="px-6 py-4 hover:bg-gradient-to-r hover:from-blue-100 hover:to-cyan-100 cursor-pointer border-b border-cyan-100 last:border-b-0 font-semibold text-gray-800 hover:text-blue-600 transition-all duration-200 transform hover:scale-105"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
                   {QUICK_INGREDIENTS.find((item) => item.name === ingredient)?.emoji || EMOJI_MAP[ingredient]} {ingredient}
@@ -239,7 +254,7 @@ export default function HomePage() {
           <Link
             href={`/results?ingredients=${selectedIngredients.join(",")}&maxCookTime=${cookingDuration}&maxIngredients=${ingredientCount}`}
           >
-            <button className="group relative bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-white px-12 py-6 text-xl sm:text-2xl font-black rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 hover:-rotate-2 w-full sm:w-auto">
+            <button className="group relative bg-gradient-to-r from-yellow-300 via-amber-400 to-cyan-500 hover:from-yellow-300 via-amber-400 to-cyan-500 text-white px-12 py-6 text-xl sm:text-2xl font-black rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 hover:-rotate-2 w-full sm:w-auto">
               <span className="relative z-10 flex items-center justify-center gap-3">
                 <span className="animate-bounce">🚀</span>
                 FIND MY RECIPES!
@@ -248,7 +263,7 @@ export default function HomePage() {
                 </span>
               </span>
               {/* Button glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 via-amber-400 to-cyan-500 rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
             </button>
           </Link>
         </div>
@@ -261,7 +276,7 @@ export default function HomePage() {
               <button
                 key={item.name}
                 onClick={() => addIngredient(item.name)}
-                className="group px-4 sm:px-6 py-3 bg-white hover:bg-yellow-100 rounded-full text-sm sm:text-base border-3 border-white hover:border-yellow-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 hover:rotate-3 font-bold text-gray-800 hover:text-purple-600"
+                className="group px-4 sm:px-6 py-3 bg-white hover:bg-yellow-100 rounded-full text-sm sm:text-base border-3 border-white hover:border-yellow-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 hover:rotate-3 font-bold text-gray-800 hover:text-blue-600"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <span className="text-2xl group-hover:animate-bounce inline-block">{item.emoji}</span>
@@ -274,12 +289,12 @@ export default function HomePage() {
 
       {/* Enhanced Filter Panel */}
       {showFilters && (
-        <div className="fixed inset-x-4 top-32 sm:right-8 sm:left-auto sm:w-96 bg-white rounded-3xl shadow-2xl border-4 border-purple-300 p-8 z-50 animate-slide-in">
+        <div className="fixed inset-x-4 top-32 sm:right-8 sm:left-auto sm:w-96 bg-white rounded-3xl shadow-2xl border-4 border-cyan-300 p-8 z-50 animate-slide-in">
           <div className="flex items-center justify-between mb-8">
-            <h3 className="text-2xl font-black text-purple-600">🎛️ FILTERS</h3>
+            <h3 className="text-2xl font-black text-sky-600">🎛️ FILTERS</h3>
             <button
               onClick={() => setShowFilters(false)}
-              className="text-purple-400 hover:text-red-500 text-2xl font-bold hover:scale-125 transition-all duration-200"
+              className="text-blue-400 hover:text-red-500 text-2xl font-bold hover:scale-125 transition-all duration-200"
             >
               ×
             </button>
@@ -288,7 +303,7 @@ export default function HomePage() {
           <div className="space-y-8">
             <div>
               <label className="block font-bold text-gray-800 mb-4 text-lg">
-                ⏰ Max cooking time: <span className="text-purple-600">{cookingDuration} min</span>
+                ⏰ Max cooking time: <span className="text-sky-600">{cookingDuration} min</span>
               </label>
               <input
                 type="range"
@@ -296,13 +311,13 @@ export default function HomePage() {
                 max="300"
                 value={cookingDuration}
                 onChange={(e) => setCookingDuration(Number(e.target.value))}
-                className="w-full h-3 bg-purple-200 rounded-full appearance-none cursor-pointer slider-purple"
+                className="w-full h-3 bg-cyan-200 rounded-full appearance-none cursor-pointer slider-sky"
               />
             </div>
 
             <div>
               <label className="block font-bold text-gray-800 mb-4 text-lg">
-                🥕 Max ingredients: <span className="text-purple-600">{ingredientCount}</span>
+                🥕 Max ingredients: <span className="text-sky-600">{ingredientCount}</span>
               </label>
               <input
                 type="range"
@@ -310,13 +325,13 @@ export default function HomePage() {
                 max="20"
                 value={ingredientCount}
                 onChange={(e) => setIngredientCount(Number(e.target.value))}
-                className="w-full h-3 bg-purple-200 rounded-full appearance-none cursor-pointer slider-purple"
+                className="w-full h-3 bg-cyan-200 rounded-full appearance-none cursor-pointer slider-sky"
               />
             </div>
 
             <button
               onClick={() => setShowFilters(false)}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-4 rounded-2xl font-black text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="w-full bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white py-4 rounded-2xl font-black text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
               APPLY FILTERS! ✨
             </button>
@@ -328,7 +343,7 @@ export default function HomePage() {
       <section className="relative z-10 bg-white bg-opacity-90 py-16 sm:py-20 mt-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl sm:text-5xl font-black text-gray-800 mb-12 sm:mb-16">
-            <span className="text-purple-600">HOW</span> IT <span className="text-orange-500">WORKS</span>
+            <span className="text-sky-600">HOW</span> IT <span className="text-yellow-500">WORKS</span>
           </h2>
           <div className="grid sm:grid-cols-3 gap-8 sm:gap-12">
             {[
@@ -336,19 +351,19 @@ export default function HomePage() {
                 emoji: "🧺",
                 title: "Add Ingredients",
                 desc: "Tell us what you have",
-                color: "from-blue-400 to-purple-500",
+                color: "from-sky-400 to-yellow-500",
               },
               {
                 emoji: "🔍",
                 title: "Find Recipes",
                 desc: "Get personalized suggestions",
-                color: "from-purple-400 to-pink-500",
+                color: "from-sky-700 to-cyan-400",
               },
               {
                 emoji: "👨‍🍳",
                 title: "Start Cooking",
                 desc: "Follow simple instructions",
-                color: "from-pink-400 to-red-500",
+                color: "from-amber-400 to-sky-500",
               },
             ].map((step, i) => (
               <div
@@ -399,27 +414,27 @@ export default function HomePage() {
           animation: slide-in 0.4s ease-out forwards;
         }
         
-        .slider-purple::-webkit-slider-thumb {
+        .slider-blue::-webkit-slider-thumb {
           appearance: none;
           height: 24px;
           width: 24px;
           border-radius: 50%;
-          background: linear-gradient(45deg, #8b5cf6, #ec4899);
+          background: linear-gradient(45deg, #23297fff, #ece448ff);
           cursor: pointer;
           box-shadow: 0 4px 8px rgba(0,0,0,0.3);
           transition: all 0.2s ease;
         }
         
-        .slider-purple::-webkit-slider-thumb:hover {
+        .slider-blue::-webkit-slider-thumb:hover {
           transform: scale(1.2);
           box-shadow: 0 6px 12px rgba(0,0,0,0.4);
         }
         
-        .slider-purple::-moz-range-thumb {
+        .slider-blue::-moz-range-thumb {
           height: 24px;
           width: 24px;
           border-radius: 50%;
-          background: linear-gradient(45deg, #8b5cf6, #ec4899);
+          background: linear-gradient(45deg, #23297fff, #ece448ff);
           cursor: pointer;
           border: none;
           box-shadow: 0 4px 8px rgba(0,0,0,0.3);

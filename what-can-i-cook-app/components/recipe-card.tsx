@@ -7,9 +7,10 @@ interface RecipeCardProps {
   onClick: () => void
   showMatchScore?: boolean
   size?: "small" | "medium" | "large"
+  whiteText?: boolean
 }
 
-export default function RecipeCard({ recipe, onClick, showMatchScore = false, size = "medium" }: RecipeCardProps) {
+export default function RecipeCard({ recipe, onClick, showMatchScore = false, size = "medium", whiteText = false  }: RecipeCardProps) {
   const sizeClasses = {
     small: "w-20",
     medium: "w-48",
@@ -33,10 +34,14 @@ export default function RecipeCard({ recipe, onClick, showMatchScore = false, si
           </div>
         </div>
         <div className="w-20">
-          <p className="text-xs font-medium text-gray-800 truncate">{recipe.name}</p>
-          <p className="text-xs text-gray-500">{recipe.cookTime}min</p>
+          <p className={`text-xs font-medium ${whiteText ? "text-white" : "text-gray-800"} truncate`}>
+            {recipe.name}
+          </p>
+          <p className={`${whiteText ? "text-white/80" : "text-gray-500"}`}>
+            {recipe.cookTime}min
+          </p>
           {showMatchScore && recipe.matchScore !== undefined && (
-            <p className="text-xs text-gray-500">
+            <p className={`${whiteText ? "text-white/80" : "text-gray-500"}`}>
               {recipe.matchScore}/{recipe.ingredients.length}
             </p>
           )}
@@ -51,7 +56,7 @@ export default function RecipeCard({ recipe, onClick, showMatchScore = false, si
       className={`${sizeClasses[size]} ${size === "large" ? "" : "flex-shrink-0"} bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group`}
     >
       <div className={`relative ${imageClasses[size]} rounded-t-xl overflow-hidden`}>
-        <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+        <div className="w-full h-full bg-gradient-to-br from-yellow-100 to-cyan-200 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
           <span className={imageClasses[size].split(" ")[2]}>{recipe.image}</span>
         </div>
         <div className="absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">

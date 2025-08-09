@@ -172,48 +172,55 @@ export default function ResultsPage() {
       {/* Top fade overlay */}
       <div className="absolute top-0 left-0 w-full h-40 z-0 bg-gradient-to-b from-black to-transparent pointer-events-none" />
 
-      {/* Celebration Confetti - ONLY when showCelebration is true */}
+      {/* Celebration Lemon Juice Effect */}
       {showCelebration && (
         <div className="fixed inset-0 pointer-events-none z-50">
-          {CELEBRATION_EMOJIS.map((emoji, i) => (
-            <div
-              key={`celebration-${i}`}
-              className="absolute text-4xl animate-bounce opacity-80"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${i * 0.2}s`,
-                animationDuration: `${1 + Math.random()}s`,
-              }}
-            >
-              {emoji}
-            </div>
-          ))}
+          {[...Array(35)].map((_, i) => {
+            const size = 6 + Math.random() * 14; // droplet size
+            const angle = Math.random() * (2 * Math.PI); // direction in radians
+            const distance = 50 + Math.random() * 150; // how far it travels
+
+            return (
+              <div
+                key={`droplet-${i}`}
+                className="absolute rounded-full bg-yellow-300 shadow-md animate-lemon-burst"
+                style={{
+                  width: `${size}px`,
+                  height: `${size}px`,
+                  left: "50%",
+                  top: "50%",
+                  transform: `translate(-50%, -50%)`,
+                  // Send it in a direction using CSS vars
+                  // @ts-ignore
+                  "--dx": `${Math.cos(angle) * distance}px`,
+                  "--dy": `${Math.sin(angle) * distance}px`,
+                  animationDelay: `${i * 0.02}s`,
+                  animationDuration: `${0.6 + Math.random() * 0.4}s`,
+                }}
+              />
+            );
+          })}
         </div>
       )}
 
-      {/* Interactive Cursor Follower */}
-      <div
-        className="fixed w-6 h-6 pointer-events-none z-40 transition-all duration-300 ease-out"
-        style={{
-          left: mousePosition.x - 12,
-          top: mousePosition.y - 12,
-        }}
-      >
-        <div className="w-full h-full bg-yellow-400 rounded-full opacity-60 animate-pulse"></div>
-      </div>
+      {/* Interactive Cursor - Only show on screens above 768px */}
+      {window.innerWidth > 768 && (
+        <div
+          className="fixed z-50 pointer-events-none transition-all duration-150 ease-out"
+          style={{
+            left: mousePosition.x - 20,
+            top: mousePosition.y - 20,
+            width: 40,
+            height: 40,
+          }}
+        >
+          {/* Outer ring */}
+          <div className="w-full h-full rounded-full border-2 border-lime-300 animate-ping"></div>
+          {/* Inner dot */}
+          <div className="absolute top-1/2 left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 bg-yellow-300 rounded-full shadow-md" />
+        </div>
+      )}
 
-      {/* Static Background Elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute text-3xl opacity-10 top-20 left-10">🍽️</div>
-        <div className="absolute text-3xl opacity-10 top-32 right-20">🥄</div>
-        <div className="absolute text-3xl opacity-10 top-60 left-1/4">🍴</div>
-        <div className="absolute text-3xl opacity-10 top-80 right-1/3">🥢</div>
-        <div className="absolute text-3xl opacity-10 bottom-40 left-20">🔪</div>
-        <div className="absolute text-3xl opacity-10 bottom-60 right-10">🍳</div>
-        <div className="absolute text-3xl opacity-10 bottom-20 left-1/2">🥘</div>
-        <div className="absolute text-3xl opacity-10 top-40 right-1/2">🍲</div>
-      </div>
 
       {/* Header */}
       <header className="flex items-center justify-center gap-4 py-6 px-4 sm:gap-12 sm:py-8"> {/* Adjusted gap and added px for mobile */}
@@ -415,6 +422,7 @@ export default function ResultsPage() {
                     onClick={() => setSelectedRecipe(recipe)}
                     showMatchScore={true}
                     size="small"
+                    whiteText={true}
                   />
                 </div>
               ))}
@@ -459,6 +467,27 @@ export default function ResultsPage() {
           border: none;
           box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
+
+        @keyframes lemon-burst {
+          0% {
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 1;
+          }
+          80% {
+            transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1);
+            opacity: 0.9;
+          }
+          100% {
+            transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.5);
+            opacity: 0;
+          }
+        }
+
+        .animate-lemon-burst {
+          animation: lemon-burst ease-out forwards;
+        }
+
+
       `}</style>
     </div>
   )

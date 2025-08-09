@@ -98,21 +98,25 @@ export default function HomePage() {
       </div>
 
 
-      {/* Interactive Cursor Follower */}
-      <div
-        className="fixed z-50 pointer-events-none transition-all duration-150 ease-out"
-        style={{
-          left: mousePosition.x - 20,
-          top: mousePosition.y - 20,
-          width: 40,
-          height: 40,
-        }}
-      >
-        {/* Outer ring */}
-        <div className="w-full h-full rounded-full border-2 border-lime-300 animate-ping"></div>
-        {/* Inner dot */}
-        <div className="absolute top-1/2 left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 bg-yellow-300 rounded-full shadow-md" />
-      </div>
+      {/* Interactive Cursor - Only show on screens above 768px */}
+      {window.innerWidth > 768 && (
+        <div
+          className="fixed z-50 pointer-events-none transition-all duration-150 ease-out"
+          style={{
+            left: mousePosition.x - 20,
+            top: mousePosition.y - 20,
+            width: 40,
+            height: 40,
+          }}
+        >
+          {/* Outer ring */}
+          <div className="w-full h-full rounded-full border-2 border-lime-300 animate-ping"></div>
+          {/* Inner dot */}
+          <div className="absolute top-1/2 left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 bg-yellow-300 rounded-full shadow-md" />
+        </div>
+      )}
+
+
       {/* Header */}
       <header className="flex items-center justify-center gap-4 py-6 px-4 sm:gap-12 sm:py-8"> {/* Adjusted gap and added px for mobile */}
         <nav className="flex flex-wrap justify-center items-center gap-4 text-lg font-semibold text-white"> {/* Added flex-wrap and justify-center for mobile */}
@@ -250,7 +254,7 @@ export default function HomePage() {
           <Link
             href={`/results?ingredients=${selectedIngredients.join(",")}&maxCookTime=${cookingDuration}&maxIngredients=${ingredientCount}`}
           >
-            <button className="group relative bg-gradient-to-r from-yellow-300 via-amber-400 to-cyan-500 hover:from-yellow-300 via-amber-400 to-cyan-500 text-white px-8 py-4 text-xl sm:text-2xl font-black rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 hover:-rotate-2 w-full sm:w-auto"> {/* Original colors, adjusted padding for mobile */}
+            <button className="group relative bg-gradient-to-r from-yellow-300 via-amber-400 to-amber-700 hover:from-yellow-300 via-amber-400 to-amber-700 text-white px-8 py-4 text-xl sm:text-2xl font-black rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 hover:-rotate-2 w-full sm:w-auto"> {/* Original colors, adjusted padding for mobile */}
               <span className="relative z-10 flex items-center justify-center gap-3">
                 <span className="animate-bounce">🚀</span>
                 FIND MY RECIPES!
@@ -259,7 +263,7 @@ export default function HomePage() {
                 </span>
               </span>
               {/* Button glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 via-amber-400 to-cyan-500 rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div> {/* Original colors */}
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 via-amber-400 to-amber-700 rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div> {/* Original colors */}
             </button>
           </Link>
         </div>
@@ -283,7 +287,7 @@ export default function HomePage() {
       </main>
       {/* Enhanced Filter Panel */}
       {showFilters && (
-        <div className="fixed inset-x-4 top-24 sm:right-8 sm:left-auto sm:w-96 bg-white rounded-3xl shadow-2xl border-4 border-cyan-300 p-6 sm:p-8 z-50 animate-slide-in"> {/* Adjusted top, padding for mobile */}
+        <div className="fixed inset-x-4 top-24 sm:right-8 sm:left-auto sm:w-96 bg-white rounded-3xl shadow-2xl border-4 border-amber-300 p-6 sm:p-8 z-50 animate-slide-in"> {/* Adjusted top, padding for mobile */}
           <div className="flex items-center justify-between mb-6 sm:mb-8"> {/* Adjusted margin for mobile */}
             <h3 className="text-xl sm:text-2xl font-black text-sky-600">🎛️ FILTERS</h3> {/* Adjusted font size */}
             <button

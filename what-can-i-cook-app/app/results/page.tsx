@@ -191,7 +191,7 @@ export default function ResultsPage() {
                   top: "50%",
                   transform: `translate(-50%, -50%)`,
                   // Send it in a direction using CSS vars
-                  // @ts-expect-error
+                  // @ts-expect-error: allow CSS vars in style object
                   "--dx": `${Math.cos(angle) * distance}px`,
                   "--dy": `${Math.sin(angle) * distance}px`,
                   animationDelay: `${i * 0.02}s`,

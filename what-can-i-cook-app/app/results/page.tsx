@@ -60,6 +60,16 @@ export default function ResultsPage() {
   const [showCelebration, setShowCelebration] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [hasInitialized, setHasInitialized] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(false);
+
+    useEffect(() => {
+      function handleResize() {
+        setIsDesktop(window.innerWidth > 768);
+      }
+      handleResize(); // Set on mount
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
   // Mouse tracking - memoized to prevent re-renders
   const handleMouseMove = useCallback((e: MouseEvent) => {
@@ -204,7 +214,7 @@ export default function ResultsPage() {
       )}
 
       {/* Interactive Cursor - Only show on screens above 768px */}
-      {window.innerWidth > 768 && (
+      {isDesktop && (
         <div
           className="fixed z-50 pointer-events-none transition-all duration-150 ease-out"
           style={{

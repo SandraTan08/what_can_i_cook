@@ -31,6 +31,16 @@ export default function HomePage() {
   const [ingredientCount, setIngredientCount] = useState(10)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHungry, setIsHungry] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    function handleResize() {
+      setIsDesktop(window.innerWidth > 768);
+    }
+    handleResize(); // Set on mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Mouse tracking for interactive elements
   useEffect(() => {
@@ -99,7 +109,7 @@ export default function HomePage() {
 
 
       {/* Interactive Cursor - Only show on screens above 768px */}
-      {window.innerWidth > 768 && (
+      {isDesktop && (
         <div
           className="fixed z-50 pointer-events-none transition-all duration-150 ease-out"
           style={{

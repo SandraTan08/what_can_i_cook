@@ -29,7 +29,7 @@ export default function RecipeCard({ recipe, onClick, showMatchScore = false, si
         <div
           className={`${imageClasses.small} rounded-full overflow-hidden shadow-lg hover:shadow-xl transition-shadow relative mb-2 mx-auto`}
         >
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-200 group-hover:scale-105 transition-transform duration-300">
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-lime-100 to-blue-200 group-hover:scale-105 transition-transform duration-300">
             <span className={imageClasses.small.split(" ")[2]}>{recipe.image}</span>
           </div>
         </div>
@@ -59,11 +59,11 @@ export default function RecipeCard({ recipe, onClick, showMatchScore = false, si
         <div className="w-full h-full bg-gradient-to-br from-yellow-100 to-cyan-200 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
           <span className={imageClasses[size].split(" ")[2]}>{recipe.image}</span>
         </div>
-        <div className="absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
+        <div className="absolute top-2 right-2 bg-sky-700 text-white text-xs px-2 py-1 rounded-full">
           {recipe.cookTime}min
         </div>
         {showMatchScore && recipe.matchScore !== undefined && (
-          <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+          <div className="absolute top-2 left-2 bg-green-700 text-white text-xs px-2 py-1 rounded-full">
             {recipe.matchScore}/{recipe.ingredients.length}
           </div>
         )}

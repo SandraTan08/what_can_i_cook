@@ -1,15 +1,24 @@
-"use client"
+"use client";
 
-import type { Recipe } from "../data/recipes"
+import { createPortal } from "react-dom";
+import { useEffect, useState } from "react";
+import type { Recipe } from "../data/recipes";
 
 interface RecipeModalProps {
-  recipe: Recipe | null
-  onClose: () => void
-  userIngredients?: string[]
+  recipe: Recipe | null;
+  onClose: () => void;
+  userIngredients?: string[];
 }
 
 export default function RecipeModal({ recipe, onClose, userIngredients = [] }: RecipeModalProps) {
-  if (!recipe) return null
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    // Ensure portal only renders after component mounts (avoids Next.js hydration issues)
+    setIsMounted(true);
+  }, []);
+
+  if (!recipe || !isMounted) return null;
 
   const getMissingIngredients = (): string[] => {
     return recipe.ingredients.filter(
@@ -19,13 +28,13 @@ export default function RecipeModal({ recipe, onClose, userIngredients = [] }: R
             userIng.toLowerCase().includes(ingredient.toLowerCase()) ||
             ingredient.toLowerCase().includes(userIng.toLowerCase()),
         ),
-    )
-  }
+    );
+  };
 
-  const missingIngredients = getMissingIngredients()
+  const missingIngredients = getMissingIngredients();
 
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+  return createPortal(
+    <div className="fixed inset-0 bg-black/30 backdrop-brightness-70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
         {/* Header */}
         <div className="flex justify-between items-center p-4 sm:p-6 border-b sticky top-0 bg-white">
@@ -60,7 +69,7 @@ export default function RecipeModal({ recipe, onClose, userIngredients = [] }: R
             <h3 className="font-semibold text-gray-800 mb-3">Ingredients:</h3>
             <div className="flex flex-wrap gap-2">
               {recipe.ingredients.map((ingredient, index) => {
-                const isMissing = missingIngredients.includes(ingredient)
+                const isMissing = missingIngredients.includes(ingredient);
                 return (
                   <span
                     key={index}
@@ -72,7 +81,7 @@ export default function RecipeModal({ recipe, onClose, userIngredients = [] }: R
                   >
                     {ingredient}
                   </span>
-                )
+                );
               })}
             </div>
           </div>
@@ -116,6 +125,7 @@ export default function RecipeModal({ recipe, onClose, userIngredients = [] }: R
           )}
         </div>
       </div>
-    </div>
-  )
+    </div>,
+    document.body
+  );
 }

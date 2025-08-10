@@ -381,7 +381,7 @@ export default function ResultsPage() {
               <span className="inline-block transform hover:scale-110 hover:rotate-3 transition-all duration-300 cursor-pointer">
                 🏆
               </span>{" "}
-              <span className="text-yellow-300">TOP</span> MATCHES
+              <span className="text-yellow-200">TOP</span> MATCHES
             </h2>
             <p className="text-white text-lg font-semibold opacity-90">
               These recipes are PERFECT for what you have! 🎯
@@ -417,7 +417,7 @@ export default function ResultsPage() {
                 <span className="inline-block transform hover:scale-110 hover:-rotate-3 transition-all duration-300 cursor-pointer">
                   ✨
                 </span>{" "}
-                <span className="text-pink-300">MORE</span> RECIPES
+                <span className="text-cyan-200">MORE</span> RECIPES
               </h2>
               <p className="text-white text-lg font-semibold opacity-90">
                 These might need a few extra ingredients, but they are worth it! 🌟
@@ -457,7 +457,7 @@ export default function ResultsPage() {
           height: 28px;
           width: 28px;
           border-radius: 50%;
-          background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+          background: linear-gradient(45deg, #d7a211ff, #feca57, #48dbfb, #2774d2ff);
           cursor: pointer;
           box-shadow: 0 4px 12px rgba(0,0,0,0.3);
           transition: all 0.3s ease;
@@ -472,7 +472,7 @@ export default function ResultsPage() {
           height: 28px;
           width: 28px;
           border-radius: 50%;
-          background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+          background: linear-gradient(45deg, #d7a211ff, #feca57, #48dbfb, #2774d2ff);
           cursor: pointer;
           border: none;
           box-shadow: 0 4px 12px rgba(0,0,0,0.3);

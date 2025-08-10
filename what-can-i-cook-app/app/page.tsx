@@ -77,15 +77,17 @@ export default function HomePage() {
   return (
     // background colour 
     <div className="min-h-screen relative overflow-hidden">
-      <div
-        className="absolute inset-0 bg-black bg-opacity-50 z-0"
-        style={{
-          backgroundImage: "url('images/blueberry_bg.jpg')", // Original image path
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          filter: "brightness(0.5)",
-        }}
-      ></div>
+<div
+    className="absolute inset-0 bg-black bg-opacity-80 z-0"
+    style={{
+      backgroundImage: "url('images/fox_mountain.png')",
+      backgroundSize: "contain", // shows full image
+      backgroundRepeat: "no-repeat", // no tiling
+      backgroundPosition: "center",
+      filter: "brightness(0.5)",
+      backgroundColor: "black", // fills space around image
+    }}
+  ></div>
       {/* Top fade overlay */}
       <div className="absolute top-0 left-0 w-full h-40 z-0 bg-gradient-to-b from-black to-transparent pointer-events-none" />
       
